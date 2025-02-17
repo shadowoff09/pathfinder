@@ -39,7 +39,7 @@ export function ModeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="end"
-        className="mt-16 w-56 dark:bg-black/90 dark:border-slate-800 bg-white/90 border-slate-200 backdrop-blur-sm z-0 animate-in slide-in-from-top-2 fade-in-20 duration-200"
+        className="space-y-1 font-onest mt-2 w-56 dark:bg-black/90 dark:border-slate-900/80 bg-white/90 border-slate-200 backdrop-blur-sm z-0 animate-in slide-in-from-top-2 fade-in-20 duration-200"
       >
         <DropdownMenuLabel className="font-normal">
           <span className="block text-sm font-medium mb-1">Theme</span>

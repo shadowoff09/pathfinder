@@ -97,7 +97,7 @@ export default function SearchBar({ onSelectLocation }: SearchBarProps) {
         ref={inputRef}
         type="text"
         placeholder="Search for points of interest..."
-        className="border border-border/50 dark:text-white text-black font-onest font-semibold pl-10 pr-4 py-2 w-full bg-background/50 dark:bg-background/60 backdrop-blur-sm shadow-sm hover:border-accent-foreground/20 focus:border-red-500 focus:ring-red-500 dark:border-input/80 dark:hover:border-border/70 dark:focus:border-border/60 dark:focus:ring-border/60 rounded-lg"
+        className="border border-border/50 dark:text-white text-black font-onest font-semibold pl-10 pr-4 py-2 w-full bg-background/50 dark:bg-background/60 backdrop-blur-sm shadow-sm hover:border-accent-foreground/20 focus:border-border/60 focus:ring-border/60 dark:border-input/80 dark:hover:border-border/70 dark:focus:border-border/60 dark:focus:ring-border/60 rounded-lg"
         value={searchTerm}
         onChange={handleChange}
         aria-label="Search locations"

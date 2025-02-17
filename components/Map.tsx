@@ -10,9 +10,10 @@ import CurrentLocationButton from "./CurrentLocationButton"
 import SearchBar from "./SearchBar"
 import { LoadingSpinner } from "./ui/circular-spinner"
 import { useTheme } from "next-themes"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ChangeMapStyleButton from "./ChangeMapStyleButton"
 import { MapPin } from "lucide-react"
+import Controls from "./Controls"
 
 /**
  * Available map styles for the application
@@ -45,7 +46,7 @@ export default function Map() {
     const [mapRef, setMapRef] = useState<{ current?: MapRef }>({})
     const [loading, setLoading] = useState(true)
     const [zoom, setZoom] = useState(mapRef.current?.getZoom() || 0)
-    const { theme } = useTheme()
+    const { resolvedTheme } = useTheme()
     const [mapStyle, setMapStyle] = useState<'STREETS' | 'SATELLITE'>('STREETS')
     
     // Estado para armazenar a localização selecionada pelo utilizador
@@ -93,8 +94,32 @@ export default function Map() {
         setZoom(14)
     }
 
-    
+    /**
+     * Reset view to initial state when Ctrl+R is pressed
+     */
+    useEffect(() => {
+        const handleKeyPress = (event: KeyboardEvent) => {
+            if (event.ctrlKey && event.key === 'r') {
+                event.preventDefault()
+                mapRef.current?.flyTo({
+                    center: [-4.649779746122704, 17.08385049329921],
+                    zoom: 2,
+                    pitch: 0,
+                    bearing: 0,
+                })
+                setCoordinates({
+                    longitude: -4.649779746122704,
+                    latitude: 17.08385049329921
+                })
+                setZoom(2)
+                setSelectedLocation(null)
+            }
+        }
 
+        window.addEventListener('keydown', handleKeyPress)
+        return () => window.removeEventListener('keydown', handleKeyPress)
+    }, [mapRef])
+    
     return (
         <div className="w-full h-full">
             <MapComponent
@@ -104,7 +129,7 @@ export default function Map() {
                     width: "100vw",
                     height: "100vh",
                 }}
-                mapStyle={MAP_STYLES[mapStyle][theme === 'dark' ? 'dark' : 'light']}
+                mapStyle={MAP_STYLES[mapStyle][resolvedTheme === 'dark' ? 'dark' : 'light']}
                 projection="globe"
                 onMove={handleMove}
                 onLoad={() => {
@@ -150,7 +175,7 @@ export default function Map() {
                         type="fill-extrusion"
                         minzoom={15}
                         paint={{
-                            "fill-extrusion-color": theme === "dark" ? "#444444" : "#aaa",
+                            "fill-extrusion-color": resolvedTheme === "dark" ? "#444444" : "#aaa",
                             "fill-extrusion-height": ["get", "height"],
                             "fill-extrusion-base": ["get", "min_height"],
                             "fill-extrusion-opacity": 0.6,
@@ -169,6 +194,9 @@ export default function Map() {
                 latitude={coordinates.latitude}
                 zoom={zoom}
             />
+
+
+            <Controls />
 
             {zoom >= 14 && (
                 <WeatherDisplay
