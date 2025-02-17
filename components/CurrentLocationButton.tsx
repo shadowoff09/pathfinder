@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { MapPin, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { LoadingSpinner } from "./ui/circular-spinner";
-
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
 type CurrentLocationButtonProps = {
   onUpdateCoordinates: (coordinates: { latitude: number, longitude: number }) => void;
 };
@@ -54,8 +54,17 @@ export default function CurrentLocationButton({ onUpdateCoordinates }: CurrentLo
     };
     
     return (
-        <Button variant="outline" size="icon" className="absolute bottom-6 right-1" onClick={handleClick}>
-            {isLoading ? <LoadingSpinner size={20} /> : error ? <X className="w-4 h-4 text-red-500" /> : <MapPin className="w-4 h-4" />}
-        </Button>
+        <TooltipProvider>
+            <Tooltip delayDuration={700}>
+                <TooltipTrigger asChild>
+                    <Button variant="outline" size="icon" className="absolute bottom-6 right-1" onClick={handleClick}>
+                        {isLoading ? <LoadingSpinner size={20} /> : error ? <X className="w-4 h-4 text-red-500" /> : <MapPin className="w-4 h-4" />}
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent className="font-onest bg-background/70 dark:bg-background/60 backdrop-blur-sm p-2 rounded-lg shadow-lg border border-border/50 transition-all duration-300 ease-in-out text-dark dark:text-white">
+                    <p>Current Location</p>
+                </TooltipContent>
+            </Tooltip>
+        </TooltipProvider>
     );
 }

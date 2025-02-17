@@ -21,6 +21,9 @@ const onest = Onest({
 export const metadata: Metadata = {
   title: "Pathfinder",
   description: "Pathfinder",
+  icons: [
+    { rel: "icon", url: "/images/favicon.ico" },
+  ],
 };
 
 export default function RootLayout({
