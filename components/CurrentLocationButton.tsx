@@ -46,7 +46,6 @@ export default function CurrentLocationButton({ onUpdateCoordinates }: CurrentLo
             },
             (error) => {
                 setError(error.message);
-                console.log(error);
                 setIsLoading(false);
             },
             options

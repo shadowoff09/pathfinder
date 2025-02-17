@@ -55,7 +55,6 @@ export default function SearchBar({ onSelectLocation }: SearchBarProps) {
             place_name: feature.properties.full_address,
             center: [feature.properties.coordinates.longitude, feature.properties.coordinates.latitude],
           }))
-          console.log(results)
           setSearchResults(results)
           setIsOpen(true)
           setIsLoading(false)

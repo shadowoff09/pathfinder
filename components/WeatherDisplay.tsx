@@ -54,7 +54,6 @@ export default function WeatherDisplay({ longitude, latitude }: WeatherDisplayPr
     debounceTimeoutRef.current = setTimeout(() => {
       getWeather(longitude, latitude)
         .then((data) => {
-          console.log('Weather data:', data);
           setWeather(data);
           setLoading(false);
         })
