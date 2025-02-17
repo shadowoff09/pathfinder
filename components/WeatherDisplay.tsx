@@ -73,7 +73,7 @@ export default function WeatherDisplay({ longitude, latitude }: WeatherDisplayPr
   }, [longitude, latitude]);
 
   return (
-    <div className="absolute top-[115px] md:top-[145px] right-2 font-onest pointer-events-none">
+    <div className="absolute bottom-[70px] md:top-[145px] right-1 font-onest pointer-events-none">
       <div className="bg-background/70 dark:bg-background/60 backdrop-blur-sm p-3 rounded-lg shadow-lg border border-border/50 transition-all duration-300 ease-in-out hover:scale-105">
         {!loading && !error && (
           <div className="flex items-center space-x-2 mb-1">

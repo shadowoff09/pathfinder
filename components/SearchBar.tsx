@@ -125,7 +125,7 @@ export default function SearchBar({ onSelectLocation }: SearchBarProps) {
         <div
           ref={dropdownRef}
           id="search-results"
-          className="absolute z-10 w-full mt-1 bg-background border border-input rounded-md shadow-lg dark:bg-background/60 backdrop-blur-sm"
+          className="absolute z-50 w-full mt-1 bg-background border border-input rounded-md shadow-lg dark:bg-background/60 backdrop-blur-sm"
           role="listbox"
         >
           {searchResults.length > 0 ? (

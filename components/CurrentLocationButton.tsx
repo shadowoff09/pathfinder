@@ -57,7 +57,7 @@ export default function CurrentLocationButton({ onUpdateCoordinates }: CurrentLo
         <TooltipProvider>
             <Tooltip delayDuration={700}>
                 <TooltipTrigger asChild>
-                    <Button variant="outline" size="icon" className="absolute bottom-6 right-1" onClick={handleClick}>
+                    <Button variant="outline" size="icon" className="absolute bottom-6 right-1 bg-background/70 dark:bg-background/60 backdrop-blur-sm border border-border/50" onClick={handleClick}>
                         {isLoading ? <LoadingSpinner size={20} /> : error ? <X className="w-4 h-4 text-red-500" /> : <MapPin className="w-4 h-4" />}
                     </Button>
                 </TooltipTrigger>

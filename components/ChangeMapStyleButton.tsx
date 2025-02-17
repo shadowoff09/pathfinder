@@ -16,7 +16,7 @@ const MapStyleToggleButton: React.FC<MapStyleToggleButtonProps> = ({ mapStyle, o
                     <TooltipTrigger asChild>
                         <Button
                             variant="outline"
-                            className="bg-background font-onest"
+                            className="bg-background/70 dark:bg-background/60 backdrop-blur-sm font-onest border border-border/50"
                             onClick={onToggle}
                         >
 
