@@ -2,7 +2,15 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['flagcdn.com'],
+    domains: ["flagcdn.com"],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/@:coordinates*",
+        destination: "/[...coordinates]/@:coordinates*",
+      },
+    ];
   },
 };
 
