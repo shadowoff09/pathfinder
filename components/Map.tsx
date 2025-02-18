@@ -95,11 +95,11 @@ export default function Map() {
     }
 
     /**
-     * Reset view to initial state when Ctrl+R is pressed
+     * Reset view to initial state when Ctrl+Q is pressed
      */
     useEffect(() => {
         const handleKeyPress = (event: KeyboardEvent) => {
-            if (event.ctrlKey && event.key === 'r') {
+            if (event.ctrlKey && event.key === 'q') {
                 event.preventDefault()
                 mapRef.current?.flyTo({
                     center: [-4.649779746122704, 17.08385049329921],

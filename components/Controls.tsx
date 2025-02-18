@@ -56,7 +56,7 @@ const Controls = () => {
                         </div>
                         <div className="flex items-center gap-2">
                             <Button variant="outline" className={'pl-1'}>
-                                <Badge className="text-sm font-medium text-foreground/80 bg-background/70 dark:bg-background/60 backdrop-blur-sm font-onest border border-border/50">CTRL + R</Badge>
+                                <Badge className="text-sm font-medium text-foreground/80 bg-background/70 dark:bg-background/60 hover:bg-background/30 backdrop-blur-sm font-onest border border-border/50">CTRL + Q</Badge>
                                 <span className="text-sm font-medium text-foreground/80">Reset view</span>
                             </Button>
                         </div>

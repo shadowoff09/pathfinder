@@ -16,7 +16,7 @@ interface WeatherData {
     rain: {
       '1h': number;
     };
-    
+
   };
   wind: {
     speed: number;
@@ -71,6 +71,11 @@ export default function WeatherDisplay({ longitude, latitude }: WeatherDisplayPr
     };
   }, [longitude, latitude]);
 
+  // verify if there are no weather data, temperature, feels like, humidity, pressure, wind speed, wind direction
+  if (!weather?.weather || !weather?.main?.temp || !weather?.main?.feels_like || !weather?.main?.humidity || !weather?.main?.pressure || !weather?.wind?.speed || !weather?.wind?.deg) {
+    return null;
+  }
+
   return (
     <div className="absolute bottom-[70px] md:top-[145px] right-1 font-onest pointer-events-none">
       <div className="bg-background/70 dark:bg-background/60 backdrop-blur-sm p-3 rounded-lg shadow-lg border border-border/50 transition-all duration-300 ease-in-out hover:scale-105">
@@ -106,42 +111,58 @@ export default function WeatherDisplay({ longitude, latitude }: WeatherDisplayPr
         ) : (
           <div className="flex flex-col">
             <div className="flex items-center space-x-2">
-              <Image src={`https://flagcdn.com/w20/${weather?.sys.country.toLowerCase()}.png`} alt="Weather icon" width={20} height={20} />
-              <span className="text-sm text-black dark:text-white">City:</span>
-              <span className="text-sm font-semibold">{weather?.name}</span>
+              {weather?.sys.country && (
+                <Image src={`https://flagcdn.com/w20/${weather?.sys.country.toLowerCase()}.png`} alt="Weather icon" width={20} height={20} />
+              )}
+              {weather?.name && (
+                <div>
+                  <span className="text-sm text-black dark:text-white">City: </span>
+                  <span className="text-sm font-semibold">{weather?.name}</span>
+                </div>
+              )}
             </div>
-            <div className="flex items-center space-x-2">
-              <Thermometer className="w-4 h-4 text-black dark:text-white" />
-              <span className="text-sm text-black dark:text-white">Temperature:</span>
-              <span className="text-sm font-semibold">{weather?.main?.temp}°C</span>
-            </div>
+            {weather?.main?.temp && (
+              <div className="flex items-center space-x-2">
+                <Thermometer className="w-4 h-4 text-black dark:text-white" />
+                <span className="text-sm text-black dark:text-white">Temperature:</span>
+                <span className="text-sm font-semibold">{weather?.main?.temp}°C</span>
+              </div>
+            )}
+            {weather?.main?.feels_like && (
             <div className="flex items-center space-x-2">
               <ThermometerSun className="w-4 h-4 text-black dark:text-white" />
               <span className="text-sm text-black dark:text-white">Feels like:</span>
               <span className="text-sm font-semibold">{weather?.main?.feels_like}°C</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Droplets className="w-4 h-4 text-black dark:text-white" />
-              <span className="text-sm text-black dark:text-white">Humidity:</span>
-              <span className="text-sm font-semibold">{weather?.main?.humidity}%</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Gauge className="w-4 h-4 text-black dark:text-white" />
-              <span className="text-sm text-black dark:text-white">Pressure:</span>
-              <span className="text-sm font-semibold">{weather?.main?.pressure} hPa</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Wind className="w-4 h-4 text-black dark:text-white" />
-              <span className="text-sm text-black dark:text-white">Wind speed:</span>
-              <span className="text-sm font-semibold">{weather?.wind?.speed} m/s</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Compass className="w-4 h-4 text-black dark:text-white" />
-              <span className="text-sm text-black dark:text-white">Wind direction:</span>
-              <span className="text-sm font-semibold">{weather?.wind?.deg}°</span>
-            </div>
-
-
+              </div>
+            )}
+            {weather?.main?.humidity && (
+              <div className="flex items-center space-x-2">
+                <Droplets className="w-4 h-4 text-black dark:text-white" />
+                <span className="text-sm text-black dark:text-white">Humidity:</span>
+                <span className="text-sm font-semibold">{weather?.main?.humidity}%</span>
+              </div>
+            )}
+            {weather?.main?.pressure && (
+              <div className="flex items-center space-x-2">
+                <Gauge className="w-4 h-4 text-black dark:text-white" />
+                <span className="text-sm text-black dark:text-white">Pressure:</span>
+                <span className="text-sm font-semibold">{weather?.main?.pressure} hPa</span>
+              </div>
+            )}
+            {weather?.wind?.speed && (
+              <div className="flex items-center space-x-2">
+                <Wind className="w-4 h-4 text-black dark:text-white" />
+                <span className="text-sm text-black dark:text-white">Wind speed:</span>
+                <span className="text-sm font-semibold">{weather?.wind?.speed} m/s</span>
+              </div>
+            )}
+            {weather?.wind?.deg && (
+              <div className="flex items-center space-x-2">
+                <Compass className="w-4 h-4 text-black dark:text-white" />
+                <span className="text-sm text-black dark:text-white">Wind direction:</span>
+                <span className="text-sm font-semibold">{weather?.wind?.deg}°</span>
+              </div>
+            )}
           </div>
         )}
       </div>
