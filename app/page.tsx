@@ -1,4 +1,4 @@
-import Map from "@/components/Map"
+import MapComponent from "@/components/Map"
 import Navbar from "@/components/Navbar"
 
 export default function Home() {
@@ -6,7 +6,7 @@ export default function Home() {
     <div className="h-screen flex flex-col">
       <Navbar />
       <div className="flex-1 relative">
-        <Map />
+        <MapComponent />
       </div>
     </div>
   )
