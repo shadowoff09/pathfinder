@@ -25,7 +25,8 @@
 ### Prerequisites
 
 - Node.js 22+ 
-- A Mapbox API key
+- A Mapbox API key (get it from [Mapbox](https://www.mapbox.com/))
+- A OpenWeather API key (get it from [OpenWeather](https://openweathermap.org/api))
 - npm or yarn
 
 ### Installation
@@ -43,10 +44,19 @@ npm install
 yarn install
 ```
 
-3. Create a `.env.local` file in the root directory and add your Mapbox API key:
-```env
-NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_mapbox_token_here
-```
+3. Set up environment variables:
+   - Copy the `.env.example` file to `.env.local`:
+     ```bash
+     cp .env.example .env.local
+     ```
+   - Open `.env.local` and add your Mapbox API key:
+     ```env
+     NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_mapbox_token_here
+     NEXT_PUBLIC_WEATHER_API_KEY=your_weather_api_key_here
+     ```
+   - Get your API keys from:
+     - [Mapbox](https://www.mapbox.com/) - for map functionality
+     - [OpenWeather](https://openweathermap.org/api) - for weather data
 
 4. Start the development server:
 ```bash
