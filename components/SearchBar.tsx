@@ -92,7 +92,7 @@ export default function SearchBar({ onSelectLocation }: SearchBarProps) {
   }
 
   return (
-    <div className="relative w-full max-w-md mx-auto ">
+    <div className="relative w-full">
       <Input
         ref={inputRef}
         type="text"

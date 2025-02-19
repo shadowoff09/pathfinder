@@ -1,58 +1,113 @@
-# Pathfinder
+# 🗺️ Pathfinder
 
-Welcome to **Pathfinder**, your ultimate companion for exploring the world with ease and style. Built on the robust Next.js framework, Pathfinder offers a seamless and interactive experience for discovering new places and staying informed about the weather, all from the comfort of your device.
+<div align="center">
+  <img src="public/banner.png" alt="Pathfinder Banner" width="1280"/>
+  
+  A modern, interactive mapping application built with Next.js 15, MapboxGL, and TypeScript. Pathfinder provides a seamless mapping experience with features like real-time weather data, location search, and customizable map styles.
 
-## 🚀 Features
+  [Demo](https://pathfinder.shadowdev.xyz) · [Report Bug](https://github.com/shadowoff09/pathfinder/issues) · [Request Feature](https://github.com/shadowoff09/pathfinder/issues)
+</div>
 
-- **Interactive Map Experience**: Dive into a world of exploration with our interactive map. Choose between street and satellite views to suit your adventure needs.
+## ✨ Features
 
-- **Real-Time Weather Information**: Stay ahead of the weather with up-to-date information for any location. Get insights on temperature, humidity, and wind conditions at a glance.
+- 🌓 Dark/Light mode support
+- 🏢 3D Building visualization
+- 🔍 Location search with autocomplete
+- 🌤️ Real-time weather information
+- 📍 Current location detection
+- 🛰️ Street/Satellite view toggle
+- 📱 Fully responsive design
+- ⌨️ Keyboard shortcuts support
+- 🎨 Modern UI with Tailwind CSS and shadcn/ui
 
-- **Location Search**: Find your next destination effortlessly with our intuitive search bar. Discover points of interest and specific locations with ease.
+## 🚀 Getting Started
 
-- **Current Location Access**: Instantly pinpoint your current location on the map. Perfect for navigating new areas or simply exploring your surroundings.
+### Prerequisites
 
-- **Customizable Appearance**: Personalize your experience with light and dark themes. Let Pathfinder adapt to your style or system settings.
+- Node.js 22+ 
+- A Mapbox API key
+- npm or yarn
 
-- **Responsive Design**: Enjoy a consistent and beautiful experience across all your devices, whether you're on a desktop, tablet, or smartphone.
+### Installation
 
-- **User-Friendly Interface**: Navigate with ease using our clean and intuitive design. Tooltips and icons guide you every step of the way.
+1. Clone the repository:
+```bash
+git clone https://github.com/shadowoff09/pathfinder.git
+cd pathfinder
+```
 
-- **Quick Access to Information**: Get the information you need, when you need it. Pathfinder delivers essential details efficiently and effectively.
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
 
-And much more! Pathfinder is constantly evolving to bring you the best in map-based exploration and weather insights.
+3. Create a `.env.local` file in the root directory and add your Mapbox API key:
+```env
+NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=your_mapbox_token_here
+```
 
-## Getting Started
+4. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-To get started with Pathfinder, follow these simple steps:
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-1. Clone the repository to your local machine.
-2. Install the necessary dependencies using your preferred package manager.
-3. Run the development server:
+## 🎮 Usage
 
-   ```bash
-   npm run dev
-   # or
-   yarn dev
-   # or
-   pnpm dev
-   # or
-   bun dev
-   ```
+### Map Navigation
+- Pan: Click and drag
+- Zoom: Scroll or use the zoom controls
+- Rotate: Right-click and drag
+- Reset View: Press Ctrl+Q
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to start exploring.
+### Features
+- Search locations using the search bar
+- Toggle between street and satellite view
+- View 3D buildings in street view mode (zoom level 15+)
+- Check weather information (zoom level 14+)
+- Get current location with one click
+- Copy coordinates to clipboard
 
-## Learn More
+## 🛠️ Built With
 
-To learn more about the technologies powering Pathfinder, check out the following resources:
+- [Next.js 15](https://nextjs.org/) - React Framework
+- [TypeScript](https://www.typescriptlang.org/) - Type Safety
+- [Mapbox GL JS](https://www.mapbox.com/mapbox-gl-js) - Maps API
+- [Tailwind CSS](https://tailwindcss.com/) - Styling
+- [shadcn/ui](https://ui.shadcn.com/) - UI Components
+- [React Map GL](https://visgl.github.io/react-map-gl/) - React wrapper for Mapbox GL
 
-- [Next.js Documentation](https://nextjs.org/docs) - Discover the features and API of Next.js.
-- [Learn Next.js](https://nextjs.org/learn) - An interactive tutorial to get you started with Next.js.
+## 🤝 Contributing
 
-## Deploy on Vercel
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-Deploy your own Pathfinder instance effortlessly with the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme). Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- [Mapbox](https://www.mapbox.com/) for their excellent mapping platform
+- [shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
+- [Vercel](https://vercel.com) for hosting and deployment
+
+## 📫 Contact
+
+shadow - [@shadowdev09](https://twitter.com/shadowdev09)
+
+Project Link: [https://github.com/shadowoff09/pathfinder](https://github.com/shadowoff09/pathfinder)
 
 ---
 
-Embark on your journey with Pathfinder and explore the world like never before. Happy exploring! 🌍
+⭐️ If you like this project, please give it a star!

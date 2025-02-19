@@ -182,12 +182,15 @@ export default function Map() {
                         }}
                     />
                 )}
-            </MapComponent>
 
-            {/* UI Overlay Components */}
-            <div className="absolute top-[70px] left-1/2 -translate-x-1/2 md:left-2 md:translate-x-0 md:top-[70px] transform w-full max-w-md">
-                <SearchBar onSelectLocation={handleSelectLocation} />
+            <div className="flex justify-center md:justify-start absolute top-[70px] w-full md:w-auto md:left-4 px-4 md:px-0">
+                <div className="w-full md:max-w-xl max-w-md">
+                    <SearchBar onSelectLocation={handleSelectLocation} />
+                </div>
             </div>
+
+            div
+            </MapComponent>
 
             <CoordinatesDisplay
                 longitude={coordinates.longitude}
