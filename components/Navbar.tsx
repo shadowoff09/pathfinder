@@ -1,6 +1,7 @@
 
 import { ModeToggle } from "@/components/ui/theme-toggle"
 import { RouteIcon } from "./ui/route"
+import GithubButton from "./GithubButton"
 export default function Navbar() {
   return (
     <nav className="bg-black/10 backdrop-blur-sm shadow-md px-4 py-3 absolute w-full top-0 z-50">
@@ -11,6 +12,7 @@ export default function Navbar() {
         </div>
         <div className="flex items-center space-x-2">
           <ModeToggle />
+          <GithubButton />
         </div>
       </div>
     </nav>
