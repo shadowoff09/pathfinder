@@ -5,6 +5,7 @@ import * as React from "react"
 import { Search, Loader2, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { useDebounce } from "@/hooks/use-debounce"
+import { searchLocations } from '@/app/actions'
 
 interface SearchResult {
   id: string
@@ -45,16 +46,8 @@ export default function SearchBar({ onSelectLocation }: SearchBarProps) {
   React.useEffect(() => {
     if (debouncedSearchTerm) {
       setIsLoading(true)
-      fetch(
-        `https://api.mapbox.com/search/geocode/v6/forward?q=${debouncedSearchTerm}&access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}`,
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          const results = data.features.map((feature: any) => ({
-            id: feature.id,
-            place_name: feature.properties.full_address,
-            center: [feature.properties.coordinates.longitude, feature.properties.coordinates.latitude],
-          }))
+      searchLocations(debouncedSearchTerm)
+        .then((results) => {
           setSearchResults(results)
           setIsOpen(true)
           setIsLoading(false)
@@ -105,7 +98,7 @@ export default function SearchBar({ onSelectLocation }: SearchBarProps) {
         aria-controls="search-results"
         aria-expanded={isOpen}
       />
-      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white " size={18} />
+      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 dark:text-white text-black" size={18} />
       {isLoading ? (
         <Loader2
           className="absolute right-3 top-1/2 transform -translate-y-1/2 text-muted-foreground animate-spin"
