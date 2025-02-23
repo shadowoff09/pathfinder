@@ -116,9 +116,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 X - [@shadowdev09](https://twitter.com/shadowdev09)
 
-Project Link - [https://github.com/shadowoff09/pathfinder](https://github.com/shadowoff09/pathfinder)
+Portfolio - [https://shadowdev.xyz](https://shadowdev.xyz)
 
-Portfolio - [shadowdev.xyz](https://shadowdev.xyz)
+## 💖 Support the Project
+
+If you enjoy using Pathfinder and would like to support its development, consider making a donation:
+
+- [Donate via PayPal](https://paypal.me/diogogaspar123)
+- [Donate via Ko-Fi](ko-fi.com/shadowoff09)
+- [GitHub Sponsors](https://github.com/sponsors/shadowoff09)
+- [thanks.dev](thanks.dev/gh/shadowoff09)
+
+
+Your contributions help keep the project alive and improve its features! Thank you for your support!
 
 ---
 
