@@ -3,6 +3,7 @@ import { MapPin, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { LoadingSpinner } from "./ui/circular-spinner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip";
+
 type CurrentLocationButtonProps = {
   onUpdateCoordinates: (coordinates: { latitude: number, longitude: number }) => void;
 };

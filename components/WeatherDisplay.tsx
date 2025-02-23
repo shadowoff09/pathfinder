@@ -29,7 +29,6 @@ interface WeatherData {
   sys: {
     country: string;
   };
-  // Add more fields as needed
 }
 
 interface WeatherDisplayProps {
