@@ -114,9 +114,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📫 Contact
 
-shadow - [@shadowdev09](https://twitter.com/shadowdev09)
+X - [@shadowdev09](https://twitter.com/shadowdev09)
 
-Project Link: [https://github.com/shadowoff09/pathfinder](https://github.com/shadowoff09/pathfinder)
+Project Link - [https://github.com/shadowoff09/pathfinder](https://github.com/shadowoff09/pathfinder)
+
+Portfolio - [shadowdev.xyz](https://shadowdev.xyz)
 
 ---
 
