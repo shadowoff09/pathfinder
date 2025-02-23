@@ -37,6 +37,9 @@ interface Coordinates {
     latitude: number
 }
 
+// ~2km threshold (about the size of a small city neighborhood)
+const MOVEMENT_THRESHOLD = 0.02;
+
 export default function Map() {
     // State Management
     const [coordinates, setCoordinates] = React.useState<Coordinates>({
@@ -48,9 +51,8 @@ export default function Map() {
     const [zoom, setZoom] = useState(mapRef.current?.getZoom() || 0)
     const { resolvedTheme } = useTheme()
     const [mapStyle, setMapStyle] = useState<'STREETS' | 'SATELLITE'>('STREETS')
-    
-    // Estado para armazenar a localização selecionada pelo utilizador
     const [selectedLocation, setSelectedLocation] = useState<Coordinates | null>(null)
+    const [lastWeatherCoordinates, setLastWeatherCoordinates] = useState<Coordinates | null>(null)
 
     // Ref callback to store the map reference
     const measuredRef = React.useCallback((node: any) => node && setMapRef({ current: node }), [])
@@ -63,8 +65,21 @@ export default function Map() {
             const { longitude, latitude, zoom } = event.viewState
             setCoordinates({ longitude, latitude })
             setZoom(zoom)
+
+            if (lastWeatherCoordinates) {
+                const distanceMoved = Math.sqrt(
+                    Math.pow(longitude - lastWeatherCoordinates.longitude, 2) +
+                    Math.pow(latitude - lastWeatherCoordinates.latitude, 2)
+                )
+
+                if (distanceMoved > MOVEMENT_THRESHOLD) {
+                    setLastWeatherCoordinates({ longitude, latitude })
+                }
+            } else {
+                setLastWeatherCoordinates({ longitude, latitude })
+            }
         },
-        [],
+        [lastWeatherCoordinates]
     )
 
     /**
@@ -80,6 +95,7 @@ export default function Map() {
             bearing: -20,
         })
         setSelectedLocation(newCoordinates)
+        setLastWeatherCoordinates(newCoordinates)
     }
 
     /**
@@ -89,7 +105,7 @@ export default function Map() {
      */
     const handleSelectLocation = (longitude: number, latitude: number) => {
         const newLocation = { longitude, latitude }
-        setSelectedLocation(newLocation) // Atualiza o estado com a localização selecionada
+        setSelectedLocation(newLocation)
         updateCoordinates(newLocation)
         setZoom(14)
     }
@@ -113,13 +129,14 @@ export default function Map() {
                 })
                 setZoom(2)
                 setSelectedLocation(null)
+                setLastWeatherCoordinates(null)
             }
         }
 
         window.addEventListener('keydown', handleKeyPress)
         return () => window.removeEventListener('keydown', handleKeyPress)
     }, [mapRef])
-    
+
     return (
         <div className="w-full h-full">
             <MapComponent
@@ -152,7 +169,6 @@ export default function Map() {
                     </div>
                 )}
 
-                {/* Renderiza o marcador apenas se uma localização tiver sido selecionada */}
                 {selectedLocation && (
                     <Marker
                         longitude={selectedLocation.longitude}
@@ -166,7 +182,6 @@ export default function Map() {
                     </Marker>
                 )}
 
-                {/* Only show 3D buildings in streets mode */}
                 {mapStyle === 'STREETS' && (
                     <Layer
                         id="3d-buildings"
@@ -183,13 +198,12 @@ export default function Map() {
                     />
                 )}
 
-            <div className="flex justify-center md:justify-start absolute top-[70px] w-full md:w-auto md:left-4 px-4 md:px-0">
-                <div className="w-full md:max-w-xl max-w-md">
-                    <SearchBar onSelectLocation={handleSelectLocation} />
+                <div className="flex justify-center md:justify-start absolute top-[70px] w-full md:w-auto md:left-4 px-4 md:px-0">
+                    <div className="w-full md:max-w-xl max-w-md">
+                        <SearchBar onSelectLocation={handleSelectLocation} />
+                    </div>
                 </div>
-            </div>
 
-            div
             </MapComponent>
 
             <CoordinatesDisplay
@@ -198,13 +212,12 @@ export default function Map() {
                 zoom={zoom}
             />
 
-
             <Controls />
 
-            {zoom >= 14 && (
+            {zoom >= 14 && lastWeatherCoordinates && (
                 <WeatherDisplay
-                    longitude={coordinates.longitude}
-                    latitude={coordinates.latitude}
+                    longitude={lastWeatherCoordinates.longitude}
+                    latitude={lastWeatherCoordinates.latitude}
                 />
             )}
 
