@@ -26,6 +26,17 @@ export const metadata: Metadata = {
   icons: [
     { rel: "icon", url: "/images/favicon.ico" },
   ],
+  openGraph: {
+    title: "Pathfinder",
+    description: "Pathfinder",
+    images: "/banner.png",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pathfinder",
+    description: "Pathfinder",
+    images: "/banner.png",
+  },
 };
 
 export default function RootLayout({
@@ -38,12 +49,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${onest.variable} antialiased font-onest`}
       >
-         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
         >
-            {children}
+          {children}
         </ThemeProvider>
         <Metrics />
         <Analytics />
