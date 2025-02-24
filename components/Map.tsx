@@ -14,7 +14,7 @@ import { useEffect, useState } from "react"
 import ChangeMapStyleButton from "./ChangeMapStyleButton"
 import { MapPin } from "lucide-react"
 import Controls from "./Controls"
-
+import DonationDialog from "./DonationDialog"
 /**
  * Available map styles for the application
  */
@@ -212,8 +212,6 @@ export default function Map() {
                 zoom={zoom}
             />
 
-            <Controls />
-
             {zoom >= 14 && lastWeatherCoordinates && (
                 <WeatherDisplay
                     longitude={lastWeatherCoordinates.longitude}
@@ -221,12 +219,16 @@ export default function Map() {
                 />
             )}
 
-            <CurrentLocationButton onUpdateCoordinates={updateCoordinates} />
-
-            <ChangeMapStyleButton
-                mapStyle={mapStyle}
-                onToggle={() => setMapStyle(current => current === 'STREETS' ? 'SATELLITE' : 'STREETS')}
-            />
+            <div className="absolute bottom-6 right-4 flex flex-row gap-[5px] items-center">
+                <DonationDialog showButton={true} />
+                <Controls />
+                
+                <ChangeMapStyleButton
+                    mapStyle={mapStyle}
+                    onToggle={() => setMapStyle(current => current === 'STREETS' ? 'SATELLITE' : 'STREETS')}
+                />
+                <CurrentLocationButton onUpdateCoordinates={updateCoordinates} />
+            </div>
         </div>
     )
 }

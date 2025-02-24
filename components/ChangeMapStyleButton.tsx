@@ -10,7 +10,7 @@ interface MapStyleToggleButtonProps {
 
 const MapStyleToggleButton: React.FC<MapStyleToggleButtonProps> = ({ mapStyle, onToggle }) => {
     return (
-        <div className="absolute right-12 bottom-6">
+        <div >
             <TooltipProvider>
                 <Tooltip delayDuration={700}>
                     <TooltipTrigger asChild>
@@ -22,12 +22,12 @@ const MapStyleToggleButton: React.FC<MapStyleToggleButtonProps> = ({ mapStyle, o
 
                             {mapStyle === 'STREETS' ? (
                                 <>
-                                    <span className="mr-2">Switch to Satellite</span>
+                                    <span className="mr-2">Streets</span>
                                     <Satellite className="h-4 w-4" />
                                 </>
                             ) : (
                                 <>
-                                    <span className="mr-2">Switch to Streets</span>
+                                    <span className="mr-2">Satellite</span>
                                     <MapIcon className="h-4 w-4" />
                                 </>
                             )}
