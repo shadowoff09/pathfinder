@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider"
 import { Geist, Geist_Mono, Onest } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react"
 import "./globals.css";
+import Metrics from "@/components/metrics/Metrics";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
         >
             {children}
         </ThemeProvider>
+        <Metrics />
         <Analytics />
       </body>
     </html>
