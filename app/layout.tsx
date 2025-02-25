@@ -6,7 +6,6 @@ import "./globals.css";
 import Metrics from "@/components/metrics/Metrics";
 import DonationDialog from "@/components/DonationDialog";
 import { CoordinatesProvider } from "@/hooks/useCoordinates";
-
 import { Toaster } from "sonner";
 
 const geistSans = Geist({
