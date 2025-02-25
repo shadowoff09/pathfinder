@@ -5,6 +5,9 @@ import { Analytics } from "@vercel/analytics/react"
 import "./globals.css";
 import Metrics from "@/components/metrics/Metrics";
 import DonationDialog from "@/components/DonationDialog";
+import { CoordinatesProvider } from "@/hooks/useCoordinates";
+import { Toaster } from "sonner";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -43,11 +46,14 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
         >
-          {children}
+          <CoordinatesProvider>
+            {children}
+          </CoordinatesProvider>
         </ThemeProvider>
         <Metrics />
         <Analytics />
         <DonationDialog showButton={false} />
+        <Toaster />
       </body>
     </html>
   );

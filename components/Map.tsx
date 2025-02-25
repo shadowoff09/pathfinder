@@ -15,6 +15,8 @@ import ChangeMapStyleButton from "./ChangeMapStyleButton"
 import { MapPin } from "lucide-react"
 import Controls from "./Controls"
 import DonationDialog from "./DonationDialog"
+import { useCoordinates } from "@/hooks/useCoordinates"
+
 /**
  * Available map styles for the application
  */
@@ -41,17 +43,15 @@ interface Coordinates {
 const MOVEMENT_THRESHOLD = 0.02;
 
 export default function Map() {
-    // State Management
-    const [coordinates, setCoordinates] = React.useState<Coordinates>({
-        longitude: -4.649779746122704,
-        latitude: 17.08385049329921
-    })
+    // Context for coordinates
+    const { coordinates, setCoordinates, selectedLocation, setSelectedLocation } = useCoordinates()
+    
+    // Other state Management
     const [mapRef, setMapRef] = useState<{ current?: MapRef }>({})
     const [loading, setLoading] = useState(true)
     const [zoom, setZoom] = useState(mapRef.current?.getZoom() || 0)
     const { resolvedTheme } = useTheme()
     const [mapStyle, setMapStyle] = useState<'STREETS' | 'SATELLITE'>('STREETS')
-    const [selectedLocation, setSelectedLocation] = useState<Coordinates | null>(null)
     const [lastWeatherCoordinates, setLastWeatherCoordinates] = useState<Coordinates | null>(null)
 
     // Ref callback to store the map reference
@@ -79,7 +79,7 @@ export default function Map() {
                 setLastWeatherCoordinates({ longitude, latitude })
             }
         },
-        [lastWeatherCoordinates]
+        [lastWeatherCoordinates, setCoordinates]
     )
 
     /**
@@ -135,100 +135,102 @@ export default function Map() {
 
         window.addEventListener('keydown', handleKeyPress)
         return () => window.removeEventListener('keydown', handleKeyPress)
-    }, [mapRef])
+    }, [mapRef, setCoordinates, setSelectedLocation, setLastWeatherCoordinates])
 
     return (
-        <div className="w-full h-full">
-            <MapComponent
-                mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
-                ref={measuredRef}
-                style={{
-                    width: "100vw",
-                    height: "100vh",
-                }}
-                mapStyle={MAP_STYLES[mapStyle][resolvedTheme === 'dark' ? 'dark' : 'light']}
-                projection="globe"
-                onMove={handleMove}
-                onLoad={() => {
-                    setLoading(false)
-                }}
-                initialViewState={{
-                    longitude: coordinates.longitude,
-                    latitude: coordinates.latitude,
-                    zoom: 2,
-                    pitch: 0,
-                    bearing: 0,
-                }}
-            >
-                {loading && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm">
-                        <div className="flex flex-col items-center gap-2">
-                            <LoadingSpinner />
-                            <p className="text-sm text-muted-foreground">Loading map...</p>
+        <>
+            <div className="w-full h-full">
+                <MapComponent
+                    mapboxAccessToken={process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}
+                    ref={measuredRef}
+                    style={{
+                        width: "100vw",
+                        height: "100vh",
+                    }}
+                    mapStyle={MAP_STYLES[mapStyle][resolvedTheme === 'dark' ? 'dark' : 'light']}
+                    projection="globe"
+                    onMove={handleMove}
+                    onLoad={() => {
+                        setLoading(false)
+                    }}
+                    initialViewState={{
+                        longitude: coordinates.longitude,
+                        latitude: coordinates.latitude,
+                        zoom: 2,
+                        pitch: 0,
+                        bearing: 0,
+                    }}
+                >
+                    {loading && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-background/50 backdrop-blur-sm">
+                            <div className="flex flex-col items-center gap-2">
+                                <LoadingSpinner />
+                                <p className="text-sm text-muted-foreground">Loading map...</p>
+                            </div>
+                        </div>
+                    )}
+
+                    {selectedLocation && (
+                        <Marker
+                            longitude={selectedLocation.longitude}
+                            latitude={selectedLocation.latitude}
+                            onClick={() => {
+                                setSelectedLocation(null)
+                            }}
+                            anchor="bottom"
+                        >
+                            <MapPin className="w-6 h-6 dark:text-white text-black" />
+                        </Marker>
+                    )}
+
+                    {mapStyle === 'STREETS' && (
+                        <Layer
+                            id="3d-buildings"
+                            source="composite"
+                            source-layer="building"
+                            type="fill-extrusion"
+                            minzoom={15}
+                            paint={{
+                                "fill-extrusion-color": resolvedTheme === "dark" ? "#444444" : "#aaa",
+                                "fill-extrusion-height": ["get", "height"],
+                                "fill-extrusion-base": ["get", "min_height"],
+                                "fill-extrusion-opacity": 0.6,
+                            }}
+                        />
+                    )}
+
+                    <div className="flex justify-center md:justify-start absolute top-[70px] w-full md:w-auto md:left-4 px-4 md:px-0">
+                        <div className="w-full md:max-w-xl max-w-md">
+                            <SearchBar onSelectLocation={handleSelectLocation} />
                         </div>
                     </div>
-                )}
 
-                {selectedLocation && (
-                    <Marker
-                        longitude={selectedLocation.longitude}
-                        latitude={selectedLocation.latitude}
-                        onClick={() => {
-                            setSelectedLocation(null)
-                        }}
-                        anchor="bottom"
-                    >
-                        <MapPin className="w-6 h-6 dark:text-white text-black" />
-                    </Marker>
-                )}
+                </MapComponent>
 
-                {mapStyle === 'STREETS' && (
-                    <Layer
-                        id="3d-buildings"
-                        source="composite"
-                        source-layer="building"
-                        type="fill-extrusion"
-                        minzoom={15}
-                        paint={{
-                            "fill-extrusion-color": resolvedTheme === "dark" ? "#444444" : "#aaa",
-                            "fill-extrusion-height": ["get", "height"],
-                            "fill-extrusion-base": ["get", "min_height"],
-                            "fill-extrusion-opacity": 0.6,
-                        }}
+                <CoordinatesDisplay
+                    longitude={coordinates.longitude}
+                    latitude={coordinates.latitude}
+                    zoom={zoom}
+                />
+
+                {zoom >= 14 && lastWeatherCoordinates && (
+                    <WeatherDisplay
+                        longitude={lastWeatherCoordinates.longitude}
+                        latitude={lastWeatherCoordinates.latitude}
                     />
                 )}
 
-                <div className="flex justify-center md:justify-start absolute top-[70px] w-full md:w-auto md:left-4 px-4 md:px-0">
-                    <div className="w-full md:max-w-xl max-w-md">
-                        <SearchBar onSelectLocation={handleSelectLocation} />
-                    </div>
+                <div className="absolute bottom-6 right-4 flex flex-row gap-[5px] items-center">
+                    <DonationDialog showButton={true} />
+                    <Controls />
+                    
+                    <ChangeMapStyleButton
+                        mapStyle={mapStyle}
+                        onToggle={() => setMapStyle(current => current === 'STREETS' ? 'SATELLITE' : 'STREETS')}
+                    />
+                    <CurrentLocationButton onUpdateCoordinates={updateCoordinates} />
                 </div>
-
-            </MapComponent>
-
-            <CoordinatesDisplay
-                longitude={coordinates.longitude}
-                latitude={coordinates.latitude}
-                zoom={zoom}
-            />
-
-            {zoom >= 14 && lastWeatherCoordinates && (
-                <WeatherDisplay
-                    longitude={lastWeatherCoordinates.longitude}
-                    latitude={lastWeatherCoordinates.latitude}
-                />
-            )}
-
-            <div className="absolute bottom-6 right-4 flex flex-row gap-[5px] items-center">
-                <DonationDialog showButton={true} />
-                <Controls />
-                
-                <ChangeMapStyleButton
-                    mapStyle={mapStyle}
-                    onToggle={() => setMapStyle(current => current === 'STREETS' ? 'SATELLITE' : 'STREETS')}
-                />
-                <CurrentLocationButton onUpdateCoordinates={updateCoordinates} />
             </div>
-        </div>
+        </>
     )
 }
