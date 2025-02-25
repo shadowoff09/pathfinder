@@ -133,3 +133,6 @@ Your contributions help keep the project alive and improve its features! Thank y
 ---
 
 ⭐️ If you like this project, please give it a star!
+
+[![Stargazers over time](https://starchart.cc/shadowoff09/pathfinder.svg?variant=adaptive)](https://starchart.cc/shadowoff09/pathfinder)
+
