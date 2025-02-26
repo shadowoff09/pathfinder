@@ -9,7 +9,5 @@ updates:
     directory: "/" # Location of package manifests
     assignees:
       - "shadowoff09"
-    labels:
-      - "Dependencies Update"
     schedule:
       interval: "weekly"
