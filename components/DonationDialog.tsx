@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Heart } from 'lucide-react';
+import Link from 'next/link';
 
 interface DonationDialogProps {
   showButton?: boolean;
@@ -24,12 +25,12 @@ export default function DonationDialog({ showButton = false }: DonationDialogPro
     // Only handle automatic popup if showButton is false
     if (!showButton) {
       const hasSeenDialog = localStorage.getItem('hasSeenDonationDialog');
-      
+
       if (!hasSeenDialog) {
         const timer = setTimeout(() => {
           setIsOpen(true);
         }, 5000); // Show after 5 seconds
-        
+
         return () => clearTimeout(timer);
       }
     }
@@ -53,8 +54,8 @@ export default function DonationDialog({ showButton = false }: DonationDialogPro
   };
 
   const dialogContent = (
-    <DialogContent 
-      className="sm:max-w-md" 
+    <DialogContent
+      className="sm:max-w-md"
       onInteractOutside={() => {
         if (!showButton) {
           localStorage.setItem('hasSeenDonationDialog', 'true');
@@ -76,16 +77,17 @@ export default function DonationDialog({ showButton = false }: DonationDialogPro
           Your donation helps keep this project alive and enables new features. Even a small contribution makes a big difference!
         </p>
         <div className="flex flex-wrap gap-2 text-sm">
-          <a href="https://paypal.me/diogogaspar123" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">PayPal</a>
+          <Link href="https://paypal.me/diogogaspar123" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">PayPal</Link>
           <span>•</span>
-          <a href="https://ko-fi.com/shadowoff09" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Ko-Fi</a>
+          <Link href="https://ko-fi.com/shadowoff09" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Ko-Fi</Link>
           <span>•</span>
-          <a href="https://github.com/sponsors/shadowoff09" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">GitHub Sponsors</a>
+          <Link href="https://github.com/sponsors/shadowoff09" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">GitHub Sponsors</Link>
           <span>•</span>
-          <a href="https://thanks.dev/gh/shadowoff09" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">thanks.dev</a>
+          <Link href="https://thanks.dev/gh/shadowoff09" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">thanks.dev</Link>
         </div>
       </div>
-      <DialogFooter className="flex sm:justify-between">
+      <DialogFooter className="flex sm:justify-between gap-2">
+
         <Button variant="outline" onClick={handleClose}>
           Maybe later
         </Button>
@@ -93,6 +95,7 @@ export default function DonationDialog({ showButton = false }: DonationDialogPro
           <Heart className="h-4 w-4 fill-white" />
           Donate now
         </Button>
+
       </DialogFooter>
     </DialogContent>
   );

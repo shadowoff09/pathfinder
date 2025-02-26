@@ -1,6 +1,7 @@
 import { ModeToggle } from "@/components/ui/theme-toggle"
 import { RouteIcon } from "./ui/route"
 import GithubButton from "./GithubButton"
+import ProductHuntButton from "./ProductHuntButton"
 
 export default function Navbar() {
 
@@ -14,6 +15,7 @@ export default function Navbar() {
         <div className="flex items-center space-x-2">
           <ModeToggle />
           <GithubButton />
+          <ProductHuntButton />
         </div>
       </div>
     </nav>

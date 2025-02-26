@@ -3,7 +3,7 @@
 import * as React from "react"
 import { Search, Loader2, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
-import { useDebounce } from "@/hooks/use-debounce"
+import { useDebounce } from "@/hooks/useDebounce"
 import { searchLocations } from '@/app/actions'
 
 interface SearchResult {
