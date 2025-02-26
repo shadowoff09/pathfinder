@@ -82,8 +82,6 @@ export default function DonationDialog({ showButton = false }: DonationDialogPro
           <Link href="https://ko-fi.com/shadowoff09" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Ko-Fi</Link>
           <span>•</span>
           <Link href="https://github.com/sponsors/shadowoff09" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">GitHub Sponsors</Link>
-          <span>•</span>
-          <Link href="https://thanks.dev/gh/shadowoff09" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">thanks.dev</Link>
         </div>
       </div>
       <DialogFooter className="flex sm:justify-between gap-2">

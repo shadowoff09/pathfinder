@@ -125,7 +125,6 @@ If you enjoy using Pathfinder and would like to support its development, conside
 - [Donate via PayPal](https://paypal.me/diogogaspar123)
 - [Donate via Ko-Fi](ko-fi.com/shadowoff09)
 - [GitHub Sponsors](https://github.com/sponsors/shadowoff09)
-- [thanks.dev](thanks.dev/gh/shadowoff09)
 
 
 Your contributions help keep the project alive and improve its features! Thank you for your support!
