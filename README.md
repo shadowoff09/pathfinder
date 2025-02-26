@@ -131,6 +131,7 @@ If you enjoy using Pathfinder and would like to support its development, conside
 Your contributions help keep the project alive and improve its features! Thank you for your support!
 
 ---
+<a href="https://www.producthunt.com/posts/pathfinder-11?embed=true&utm_source=badge-featured&utm_medium=badge&utm_souce=badge-pathfinder&#0045;11" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=915601&theme=dark&t=1740532963013" alt="Pathfinder - Navigate&#0032;Your&#0032;World&#0044;&#0032;Beautifully | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
 
 ⭐️ If you like this project, please give it a star!
 
