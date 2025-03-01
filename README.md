@@ -5,7 +5,7 @@
   
   A modern, interactive mapping application built with Next.js 15, MapboxGL, and TypeScript. Pathfinder provides a seamless mapping experience with features like real-time weather data, location search, and customizable map styles.
 
-  [Demo](https://pathfinder.shadowdev.xyz) · [Report Bug](https://github.com/shadowoff09/pathfinder/issues) · [Request Feature](https://github.com/shadowoff09/pathfinder/issues)
+  [Demo](https://link.shadowdev.xyz/r/m3tydbf12hb) · [Report Bug](https://github.com/shadowoff09/pathfinder/issues) · [Request Feature](https://github.com/shadowoff09/pathfinder/issues)
 </div>
 
 ## ✨ Features
