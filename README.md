@@ -1,7 +1,7 @@
 # 🗺️ Pathfinder
 
 <div align="center">
-  <img src="public/banner.png" alt="Pathfinder Banner" width="1280"/>
+  <img src="public/banner-readme.png" alt="Pathfinder Banner" width="1280"/>
   
   A modern, interactive mapping application built with Next.js 15, MapboxGL, and TypeScript. Pathfinder provides a seamless mapping experience with features like real-time weather data, location search, and customizable map styles.
 
