@@ -30,10 +30,10 @@ export function ModeToggle() {
         <Button
           variant="ghost"
           size="icon"
-          className="relative overflow-hidden transition-colors duration-300 ease-in-out  hover:text-accent-foreground cursor-pointer hover:bg-background/20 hover:dark:bg-background/60 backdrop-blur-sm"
+          className="relative overflow-hidden transition-colors duration-300 ease-in-out  hover:text-accent-foreground cursor-pointer hover:bg-background/20 hover:dark:bg-background/60 backdrop-blur-sm border-none"
         >
-          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all duration-300 dark:-rotate-90 dark:scale-0 text-white" />
-          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all duration-300 dark:rotate-0 dark:scale-100 text-white" />
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all duration-300 dark:-rotate-90 dark:scale-0 text-black dark:text-white" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all duration-300 dark:rotate-0 dark:scale-100 text-black dark:text-white" />
           <span className="sr-only">Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>

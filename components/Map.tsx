@@ -2,7 +2,7 @@
 "use client"
 
 import * as React from "react"
-import MapComponent, { Layer, MapRef, Marker } from "react-map-gl/mapbox"
+import MapComponent, { Layer, MapRef, Marker, Popup } from "react-map-gl/mapbox"
 import "mapbox-gl/dist/mapbox-gl.css"
 import CoordinatesDisplay from "./CoordinatesDisplay"
 import WeatherDisplay from "./WeatherDisplay"
@@ -12,10 +12,13 @@ import { LoadingSpinner } from "./ui/circular-spinner"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import ChangeMapStyleButton from "./ChangeMapStyleButton"
-import { MapPin } from "lucide-react"
+import { MapPin, X } from "lucide-react"
 import Controls from "./Controls"
 import DonationDialog from "./DonationDialog"
 import { useCoordinates } from "@/hooks/useCoordinates"
+import { cn } from "@/lib/utils"
+import { Button } from "./ui/button"
+import { toast } from "sonner"
 
 /**
  * Available map styles for the application
@@ -53,6 +56,7 @@ export default function Map() {
     const { resolvedTheme } = useTheme()
     const [mapStyle, setMapStyle] = useState<'STREETS' | 'SATELLITE'>('STREETS')
     const [lastWeatherCoordinates, setLastWeatherCoordinates] = useState<Coordinates | null>(null)
+    const [showPopup, setShowPopup] = useState(false)
 
     // Ref callback to store the map reference
     const measuredRef = React.useCallback((node: any) => node && setMapRef({ current: node }), [])
@@ -137,6 +141,30 @@ export default function Map() {
         return () => window.removeEventListener('keydown', handleKeyPress)
     }, [mapRef, setCoordinates, setSelectedLocation, setLastWeatherCoordinates])
 
+    /**
+     * Handles the end of a marker drag
+     */
+    const handleDragEnd = (event: any) => {
+        const longitude = event.lngLat.lng;
+        const latitude = event.lngLat.lat;
+        setSelectedLocation({ longitude, latitude });
+        setCoordinates({ longitude, latitude });
+        setLastWeatherCoordinates({ longitude, latitude });
+    };
+
+    /**
+     * Copies location coordinates to clipboard
+     */
+    const shareLocation = () => {
+        if (selectedLocation) {
+            const locationText = `${selectedLocation.latitude.toFixed(6)},${selectedLocation.longitude.toFixed(6)}`;
+            navigator.clipboard.writeText(locationText);
+            toast(`${locationText} copied to clipboard`, {
+                duration: 3000,
+            });
+        }
+    };
+
     return (
         <>
             <div className="w-full h-full">
@@ -171,16 +199,134 @@ export default function Map() {
                     )}
 
                     {selectedLocation && (
-                        <Marker
-                            longitude={selectedLocation.longitude}
-                            latitude={selectedLocation.latitude}
-                            onClick={() => {
-                                setSelectedLocation(null)
-                            }}
-                            anchor="bottom"
-                        >
-                            <MapPin className="w-6 h-6 dark:text-white text-black" />
-                        </Marker>
+                        <>
+                            <Marker
+                                longitude={selectedLocation.longitude}
+                                latitude={selectedLocation.latitude}
+                                onClick={() => setShowPopup(!showPopup)}
+                                draggable
+                                onDragEnd={handleDragEnd}
+                                anchor="center"
+                            >
+                                <div className="relative flex items-center justify-center transition-all duration-300 hover:scale-110">
+                                    {/* Outer pulse effect */}
+                                    <div className="absolute w-14 h-14 rounded-full bg-primary/10 animate-[ping_2s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                                    
+                                    {/* Middle pulse effect */}
+                                    <div className="absolute w-10 h-10 rounded-full bg-primary/15 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                                    
+                                    {/* Inner glow */}
+                                    <div className="absolute w-8 h-8 rounded-full bg-primary/20" />
+                                    
+                                    {/* Solid background */}
+                                    <div className={cn(
+                                        "absolute w-5 h-5 rounded-full",
+                                        mapStyle === 'SATELLITE' 
+                                            ? "bg-primary shadow-[0_0_15px_rgba(255,255,255,0.7)]" 
+                                            : resolvedTheme === 'dark'
+                                                ? "bg-primary shadow-[0_0_15px_rgba(255,255,255,0.3)]" 
+                                                : "bg-primary shadow-[0_0_15px_rgba(0,0,0,0.2)]"
+                                    )} />
+                                    
+                                    {/* Pin itself */}
+                                    <MapPin 
+                                        className={cn(
+                                            "w-7 h-7 z-10 drop-shadow-lg transform-gpu transition-transform",
+                                            mapStyle === 'SATELLITE' 
+                                                ? "text-white fill-primary stroke-[3]" 
+                                                : resolvedTheme === 'dark' 
+                                                    ? "text-white fill-primary/10 stroke-[3]" 
+                                                    : "text-primary fill-white/70 stroke-[3]"
+                                        )}
+                                    />
+                                    
+                                    {/* Shadow effect */}
+                                    <div className="absolute -bottom-4 w-3 h-1 bg-black/30 rounded-full blur-sm"></div>
+                                </div>
+                            </Marker>
+                            
+                            {showPopup && (
+                                <Popup
+                                    longitude={selectedLocation.longitude}
+                                    latitude={selectedLocation.latitude}
+                                    anchor="bottom"
+                                    onClose={() => setShowPopup(false)}
+                                    closeButton={false}
+                                    className="z-10"
+                                    closeOnClick={false}
+                                    offset={25}
+                                >
+                                    <div className={cn(
+                                        "p-4 max-w-xs rounded-xl overflow-hidden animate-in fade-in-50 zoom-in-95 duration-300",
+                                        "backdrop-blur-md border border-primary/10 bg-red-500", 
+                                        resolvedTheme === 'dark'
+                                            ? "bg-gradient-to-br from-background/95 to-background/80 shadow-[0_0_15px_rgba(0,0,0,0.6)]"
+                                            : "bg-gradient-to-br from-background/95 to-background/80 shadow-[0_4px_20px_rgba(0,0,0,0.15)]"
+                                    )}>
+                                        <div className="flex justify-between items-center mb-3.5 relative">
+                                            <div className="absolute -left-4 -top-4 w-12 h-12 rounded-full bg-primary/10 blur-xl"></div>
+                                            <h3 className="font-medium tracking-tight">
+                                                <span className="text-primary">•</span> Location Details
+                                            </h3>
+                                            <Button 
+                                                variant="ghost" 
+                                                size="icon" 
+                                                className="h-6 w-6 rounded-full hover:bg-primary/10" 
+                                                onClick={() => setShowPopup(false)}
+                                            >
+                                                <X className="h-3.5 w-3.5" />
+                                            </Button>
+                                        </div>
+                                        
+                                        <div className="space-y-3 mb-4">
+                                            <div className={cn(
+                                                "rounded-lg overflow-hidden",
+                                                resolvedTheme === 'dark'
+                                                    ? "bg-black/20 border border-white/5"
+                                                    : "bg-black/5 border border-black/5"
+                                            )}>
+                                                <div className="px-3 py-2 border-b border-primary/5 flex items-center gap-2">
+                                                    <div className="h-1.5 w-1.5 rounded-full bg-primary/60"></div>
+                                                    <p className="text-xs tracking-tight font-medium">Coordinates</p>
+                                                </div>
+                                                <div className="p-3 space-y-2">
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="text-xs text-muted-foreground">Latitude</span>
+                                                        <span className="text-xs font-mono bg-primary/5 px-2 py-1 rounded">{selectedLocation.latitude.toFixed(6)}</span>
+                                                    </div>
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="text-xs text-muted-foreground">Longitude</span>
+                                                        <span className="text-xs font-mono bg-primary/5 px-2 py-1 rounded">{selectedLocation.longitude.toFixed(6)}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <Button 
+                                            variant="default" 
+                                            size="sm" 
+                                            className={cn(
+                                                "w-full h-9 text-xs gap-2 relative overflow-hidden transition-all duration-300 group",
+                                                "bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary"
+                                            )}
+                                            onClick={shareLocation}
+                                        >
+                                            <span className="absolute inset-0 w-full h-full bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300"></span>
+                                            <span className="relative z-10 flex items-center gap-1.5">
+                                                <span className="w-3.5 h-3.5 flex items-center justify-center rounded-full bg-white/20 group-hover:bg-white/30 transition-colors duration-300">
+                                                    <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
+                                                </span>
+                                                Copy Coordinates
+                                            </span>
+                                        </Button>
+                                        
+                                        <div className="mt-3 flex items-center justify-center">
+                                            <p className="text-[10px] tracking-tight text-muted-foreground">Drag pin to adjust position</p>
+                                        </div>
+                                    </div>
+                                </Popup>
+                            )}
+                        </>
                     )}
 
                     {mapStyle === 'STREETS' && (
@@ -207,18 +353,23 @@ export default function Map() {
 
                 </MapComponent>
 
-                <CoordinatesDisplay
-                    longitude={coordinates.longitude}
-                    latitude={coordinates.latitude}
-                    zoom={zoom}
-                />
+                <div className="fixed top-[70px] right-2 md:right-4 flex flex-col gap-3 items-end z-10">
+                  <CoordinatesDisplay
+                      longitude={coordinates.longitude}
+                      latitude={coordinates.latitude}
+                      zoom={zoom}
+                      zIndex={10}
+                  />
 
-                {zoom >= 14 && lastWeatherCoordinates && (
-                    <WeatherDisplay
-                        longitude={lastWeatherCoordinates.longitude}
-                        latitude={lastWeatherCoordinates.latitude}
-                    />
-                )}
+                  {zoom >= 14 && lastWeatherCoordinates && (
+                      <WeatherDisplay
+                          longitude={lastWeatherCoordinates.longitude}
+                          latitude={lastWeatherCoordinates.latitude}
+                          className="weather-widget"
+                          zIndex={9}
+                      />
+                  )}
+                </div>
 
                 <div className="absolute bottom-6 right-4 flex flex-row gap-[5px] items-center">
                     <DonationDialog showButton={true} />
