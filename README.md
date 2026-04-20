@@ -1,3 +1,35 @@
+
+<div align="right">
+  <details>
+    <summary >🌐 Language</summary>
+    <div>
+      <div align="center">
+        <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=en">English</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=zh-CN">简体中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=zh-TW">繁體中文</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=ja">日本語</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=ko">한국어</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=hi">हिन्दी</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=th">ไทย</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=fr">Français</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=de">Deutsch</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=es">Español</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=it">Italiano</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=ru">Русский</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=pt">Português</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=nl">Nederlands</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=pl">Polski</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=ar">العربية</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=fa">فارسی</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=tr">Türkçe</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=vi">Tiếng Việt</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=id">Bahasa Indonesia</a>
+        | <a href="https://openaitx.github.io/view.html?user=shadowoff09&project=pathfinder&lang=as">অসমীয়া</
+      </div>
+    </div>
+  </details>
+</div>
+
 # 🗺️ Pathfinder
 
 <div align="center">
